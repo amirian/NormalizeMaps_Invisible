@@ -1,17 +1,37 @@
-\
-    package com.example.normalizemaps
+package com.example.normalizemaps
 
-    import android.app.Activity
-    import android.content.Intent
-    import android.net.Uri
-    import android.os.Bundle
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
-    class ShareReceiverActivity : Activity() {
+class ShareReceiverActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
+        val text = intent.getStringExtra(Intent.EXTRA_TEXT) ?: ""
 
-            val intent = intent
+        // EDITED: extract location from any link
+        val regex = Regex("""(-?\d+\.\d+),\s*(-?\d+\.\d+)""")
+        val match = regex.find(text)
+
+        val finalUrl = if (match != null) {
+            val lat = match.groupValues[1]
+            val lon = match.groupValues[2]
+            "https://maps.google.com/?q=$lat,$lon"
+        } else {
+            // fallback: maybe a direct Google Maps link
+            text
+        }
+
+        val i = Intent(Intent.ACTION_VIEW, Uri.parse(finalUrl)).apply {
+            addCategory(Intent.CATEGORY_DEFAULT)
+            addCategory(Intent.CATEGORY_BROWSABLE)
+            setPackage("com.google.android.apps.maps")  // mandatory: always opens Google Maps
+        }
+
+        startActivity(i)
+/*
             if (intent.action == Intent.ACTION_SEND && intent.type == "text/plain") {
                 val sharedText = intent.getStringExtra(Intent.EXTRA_TEXT)
                 if (sharedText != null) {
@@ -29,6 +49,7 @@
                     }
                 }
             }
-            finish()
-        }
+
+*/        finish()
     }
+}
