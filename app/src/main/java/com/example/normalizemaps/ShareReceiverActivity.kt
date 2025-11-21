@@ -49,7 +49,10 @@ class ShareReceiverActivity : AppCompatActivity() {
             Regex("""ll\.(-?\d+\.\d+),\s*(-?\d+\.\d+)""", RegexOption.IGNORE_CASE),
 
             // Waze alternative: to=...lllat%2Clon or to=lllat,lon pattern
-            Regex("""to=.*?(-?\d+\.\d+)[,%20]+(-?\d+\.\d+)""", RegexOption.IGNORE_CASE)
+            Regex("""to=.*?(-?\d+\.\d+)[,%20]+(-?\d+\.\d+)""", RegexOption.IGNORE_CASE),
+
+            // Neshan with zoom Format: #c{lat}-{lon}-{zoom}z-{pitch}p
+            Regex("""#c(-?\d+\.\d+)-(-?\d+\.\d+)-""")
         )
 
         var lat: String? = null
