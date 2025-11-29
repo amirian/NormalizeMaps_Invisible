@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.normalizemaps">
+    package="com.amirian.normalizemaps">
 
     <application
         android:label="NormalizeMaps"
@@ -7,7 +7,7 @@
         android:exported="true">
 
         <activity
-            android:name=".ShareReceiverActivity"
+            android:name="com.amirian.normalizemaps.ShareReceiverActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:exported="true">
             <intent-filter>
