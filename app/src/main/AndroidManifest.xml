@@ -3,7 +3,7 @@
 
     <application
         android:label="NormalizeMaps"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/offlineloc"
         android:exported="true">
 
         <activity
